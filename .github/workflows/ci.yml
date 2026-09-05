@@ -17,7 +17,7 @@ jobs:
           python-version: '3.12'
 
       - name: 安装依赖
-        run: pip install pytest requests
+        run: pip install pytest requests allure-pytest
 
 
       - name: 启动mock服务 并运行测试
@@ -25,7 +25,19 @@ jobs:
           python login_mock.py 8000 &
           sleep 2
           curl --fail -s http://127.0.0.1:8000/login || exit 1
-          pytest -v
+          pytest -v --alluredir=allure-results
 
+      - name: 生成allure报告
+        if: always()
+        uses: step-security/allyre-report-action@v2
+        with:
+          allure-results: allure-results
+          allire-report: allure-report
 
+      -name: 报告上传
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report
 
