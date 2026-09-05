@@ -19,6 +19,13 @@ jobs:
       - name: 安装依赖
         run: pip install pytest requests
 
-      - name: 跑测试
-        run: pytest -v
+
+      - name: 启动mock服务 并运行测试
+        run: |
+          python login_mock.py 8000 &
+          sleep 2
+          curl --fail -s http://127.0.0.1:8000/login || exit 1
+          pytest -v
+
+
 
