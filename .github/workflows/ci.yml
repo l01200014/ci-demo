@@ -29,10 +29,9 @@ jobs:
 
       - name: 生成allure报告
         if: always()
-        uses: step-security/allure-report-action@v2
-        with:
-          allure_results: allure-results
-          allure_report: allure-report
+        run: |
+          pip install allure-commandline
+          allure generate allure-results -o allure-report --clean
 
       - name: 报告上传
         if: always()
