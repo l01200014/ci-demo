@@ -30,8 +30,9 @@ jobs:
       - name: 生成allure报告
         if: always()
         run: |
-          pip install allure-commandline
-          allure generate allure-results -o allure-report --clean
+          curl -sLO https://github.com/allure-framework/allure2/releases/download/2.44.0/allure-2.44.0.zip
+          unzip -q allure-2.44.0.zip
+          allure-2.44.0/bin/allure generate allure-results -o allure-report --clean
 
       - name: 报告上传
         if: always()
