@@ -3,6 +3,8 @@
 on:
   push:
     branches: [main]
+  pull_request:
+    barnches: [main]
 
 jobs:
   test:
@@ -20,7 +22,7 @@ jobs:
         run: pip install pytest requests allure-pytest
 
 
-      - name: 启动mock服务 并运行测试
+      - name: 启动mock服务并运行测试
         run: |
           python login_mock.py 8000 &
           sleep 2
