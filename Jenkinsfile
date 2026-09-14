@@ -8,7 +8,7 @@ pipeline{
 		}
 		stage("安装依赖"){
 			steps{
-				bat 'python -m pin install -q request pytest allure-pytest'
+				bat 'python -m pip install -q requests pytest allure-pytest'
 			}
 		}
 		stage("运行测试"){
